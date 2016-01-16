@@ -22,6 +22,8 @@ Las plantillas de trabajo se encuentran en el directorio template, ahí encontra
 
 Lunes 18 de enero de 2016 a las **3:00 pm**.
 
+Issues a este repositorio serán contestadas durante este periodo de tiempo.
+
 ## Indicaciones del prototipo a realizar
 
 La prueba consiste en elaborar un prototipo de la [vista de listado de objetos de Django](https://docs.djangoproject.com/en/1.9/ref/contrib/admin/#django.contrib.admin.ModelAdmin.list_filter) para dos tipos de objeto, los cuales son: un Cantón y un Distrito.
