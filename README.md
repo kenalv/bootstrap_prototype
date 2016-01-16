@@ -24,12 +24,14 @@ Lunes 18 de enero de 2016 a las **3:00 pm**.
 
 ## Indicaciones del prototipo a realizar
 
-La prueba consiste en elaborar un prototipo de la vista de listado de objetos de Django para dos tipos de objeto, los cuales son: un Cantón y un Distrito.
+La prueba consiste en elaborar un prototipo de la [vista de listado de objetos de Django](https://docs.djangoproject.com/en/1.9/ref/contrib/admin/#django.contrib.admin.ModelAdmin.list_filter) para dos tipos de objeto, los cuales son: un Cantón y un Distrito.
 
 Un cantón esta compuesto por un nombre, un código y una provincia.  Un distrito esta compuesto por un nombre, un código y una referencia al cantón de donde se puede obtener el nombre del cantón y la provincia. Se espera encontrar esos campos en el prototipo.
 
-La vista de listado de objetos permite hacer búsquedas por nombre (es un prototipo las búsquedas no tienen que funcionar), tiene una opción para realizar acciones predefinidas como por ejemplo eliminar elementos y una sección de filtros, además solo muestra 20 elementos por pagina ( no tiene que hacer 20 elementos para demostrar la idea) solo el paginado.
+La [vista de listado de objetos](https://docs.djangoproject.com/en/1.9/ref/contrib/admin/#django.contrib.admin.ModelAdmin.list_filter) permite hacer búsquedas por nombre (es un prototipo las búsquedas no tienen que funcionar), tiene una opción para realizar acciones predefinidas como por ejemplo eliminar elementos y una sección de filtros, además solo muestra 20 elementos por pagina ( no tiene que hacer 20 elementos para demostrar la idea) solo el paginado.
 
 Los cantones se filtran por provincia y los distritos se filtran por cantón y provincia, es importante notar existen 81 cantones en Costa Rica.
 
-Buena Suerte :)
+> **Nota:** La creatividad también es evaluada, la vista administrativa de Django es referenciada como ayuda a las personas que no conocen la herramienta, por lo que no es un modelo obligatorio a seguir.
+
+Buena suerte :)
