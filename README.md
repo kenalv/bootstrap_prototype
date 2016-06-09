@@ -18,11 +18,6 @@ Las plantillas de trabajo se encuentran en el directorio template, ahí encontra
 * Haga commit de los cambios y push al servidor cuando considere oportuno.
 * Cuando ya esté listo el prototipo envíe un correo a jobs@solvosoft.com con su nombre y la URL del repositorio
 
-## Hora de recepción 
-
-Lunes 18 de enero de 2016 a las **3:00 pm**.
-
-Issues a este repositorio serán contestadas durante este periodo de tiempo.
 
 ## Indicaciones del prototipo a realizar
 
