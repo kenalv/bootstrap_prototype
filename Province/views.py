@@ -5,7 +5,23 @@ from . import forms
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib import messages
 from Province.models import Canton,Distric
+from Province.serializers import CantonSerializer,DistricSerializer
 # Create your views here.
+def get_search_by_provinces(place):
+        
+    place_canton = str(place.canton).split(' ')
+    place_canton.pop(0)
+    temp = ''
+    print( temp.join(place_canton))
+    #{"canton": temp.join(place_canton),"name":place.name,"code":place.code }
+    return {"canton": temp.join(place_canton),"name":place.name,"code":place.code }
+        
+def get_filtred_provinces(places,filt):
+    
+    return list(filter(lambda place: str(place['canton']) == str(filt), list(places)))    
+    
+     
+
 
 def index(request):
    
@@ -26,11 +42,59 @@ def index(request):
         form = forms.SearchForm(request.POST)
             
         if form.is_valid():
-           
+            print('FILTROOOOOOO')
+            if form.cleaned_data['search_by_province'] is True:
+                
+                if form.cleaned_data['search_options'] == '2':
+                     
+                    if form.cleaned_data['search_name'] != '':
+                        ## ERROR AQUÍ no hace el filtro, debería de realizarce 
+                        print(form.cleaned_data['search_name'])
+                        ## pasando correctamente la variable de busqueda.
+                        districsList = Distric.objects.filter(canton='Alajuela') #'form.cleaned_data['search_name']')
+                        ## pero no obtiene datos
+                        print(list(districsList))
+                        paginator = Paginator(districsList, 10) # Show 10 elements per page, change to the number for more elements
+                        try:
+                                districs = paginator.page(page)
+                        except PageNotAnInteger:
+                                districs = paginator.page(1)
+                        except EmptyPage:
+                                districs = paginator.page(paginator.num_pages)
+                        return render(request,'test.html',{'districs':districs,'searchForm':form})
+                        
+                    
+
+                if form.cleaned_data['search_options'] == '1': 
+                    if form.cleaned_data['search_name'] is not '':
+                        cantonsList = Canton.objects.filter(province = form.cleaned_data['search_name'] )
+                        paginator = Paginator(cantonsList, 10) # Show 10 elements per page, change to the number for more elements
+
+                        try:
+                            cantons = paginator.page(page)
+                        except PageNotAnInteger:
+                            cantons = paginator.page(1)
+                        except EmptyPage:
+                            cantons = paginator.page(paginator.num_pages)
+                        return render(request,'test.html',{'cantons':cantons,'searchForm':form})
+                    cantonsList = Canton.objects.all()
+                    paginator = Paginator(cantonsList, 10) # Show 10 elements per page, change to the number for more elements
+
+                    try:
+                        cantons = paginator.page(page)
+                    except PageNotAnInteger:
+                        cantons = paginator.page(1)
+                    except EmptyPage:
+                        cantons = paginator.page(paginator.num_pages)
+                    return render(request,'test.html',{'cantons':cantons,'searchForm':form})
+
+            print('FILTROOOOOOO')
+           #############################################################################
             if form.cleaned_data['search_options'] == '2':
-                print(form.cleaned_data['search_name'])
+            
                 if form.cleaned_data['search_name'] is not '':
                         districsList = Distric.objects.filter(name = form.cleaned_data['search_name'] )
+                        
                         paginator = Paginator(districsList, 10) # Show 10 elements per page, change to the number for more elements
                         try:
                             districs = paginator.page(page)
@@ -51,11 +115,10 @@ def index(request):
                 return render(request,'test.html',{'districs':districs,'searchForm':form})
 
             if form.cleaned_data['search_options'] == '1': 
-                print('SEARCH NAME')
-                print(form.cleaned_data['search_name'])
-                print('SEARCH NAME')
                 if form.cleaned_data['search_name'] is not '':
-                        cantonsList = Canton.objects.all()
+                        cantonsList = Canton.objects.filter(name=form.cleaned_data['search_name'])
+                        serializer = CantonSerializer(cantonsList)
+                        print(serializer.data)
                         paginator = Paginator(cantonsList, 10) # Show 10 elements per page, change to the number for more elements
 
                         try:
@@ -111,12 +174,22 @@ def myMaker(request):
 
     if request.method == 'POST':
         if request.POST.get('canton'):
-            new_dictric = Distric.objects.create(canton=request.POST.get('canton'),name=request.POST.get('name'),code=request.POST.get('code'))
-            new_dictric.save
+            try:
+                c = Canton.objects.get(name = request.POST.get('canton'))
+                cc= Canton.objects.get(id = request.POST.get('province'))
+                new_dictric = Distric.objects.create(
+                    province=cc,
+                    canton=c,
+                    name=request.POST.get('name'),code=request.POST.get('code'))
+                new_dictric.save
+            except:
+                print('An error occured.')
+           
             #messages.info(request, 'Your distric has been added successfully!')
             return render(request,'new_data.html',{'formDistric':formDistric,'formCanton':formCanton,'message':'Your distric has been added successfully!'})
     
         if(request.POST.get('province')):   
+
             new_canton = Canton.objects.create(province=request.POST.get('province'),name=request.POST.get('name'),code=request.POST.get('code'))
             new_canton.save
             #messages.add_message(request, messages.INFO, 'Your canton has been added successfully!')

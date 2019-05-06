@@ -6,9 +6,8 @@ class SearchForm(forms.Form):
     options =[("1", "Canton"), ("2", "Distric")]
     search_options = forms.ChoiceField(widget=forms.RadioSelect(),
                               required=True,choices = options)
-    filters = [("1", "Province")]
-    search_filter = forms.ChoiceField(widget=forms.CheckboxSelectMultiple(),
-                              required=False,choices = filters)
+    
+    search_by_province = forms.BooleanField(required=False)
     
 class CantonForm(forms.ModelForm):
     class Meta:
@@ -18,4 +17,4 @@ class CantonForm(forms.ModelForm):
 class DistricForm(forms.ModelForm):
     class Meta:
         model = Distric
-        fields = ['canton', 'name', 'code']
+        fields = ['province', 'canton', 'name', 'code']
