@@ -3,7 +3,6 @@
 {% load static %}
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Prototipo -- {% block title %} Solvo {% endblock %} </title>
 <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" >
@@ -15,10 +14,9 @@
 <nav class="navbar navbar-default">
   <div class="container">
     <div class="navbar-header">
-      <a class="navbar-brand" href="/index.html">{% block mitcu%} Index {% endblock %}</a>
+      <a class="navbar-brand" href="/test/">{% block mitcu%} Index {% endblock %}</a>
     </div>
-<button type="button" class="btn btn-default navbar-btn navbar-right">Salir</button>
-<p class="navbar-text navbar-right" style="margin-right:10px;">Mark Otto  </p>
+<p class="navbar-text navbar-right" style="margin-right:10px;">Kenneth Alvarez </p>
 
   </div>
 </nav>
@@ -30,6 +28,14 @@
 </div>
 <script src="{% static 'js/jquery.min.js' %}"></script>
 <script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script>
+  $(".b1").click(function(){
+    $.get("http://localhost:8000/test/",{"option":'del',"pk":$(this).val()}, function(data){
+      
+    });
+  });
+  
+  </script>
 {% block js %} {% endblock %}
 </body>
 </html>

@@ -1,11 +1,22 @@
-{% extends 'base.html' %}
-
-esto no se muesta :), solo lo contenido en el bloque
-Puede encontrar información relevante en https://docs.djangoproject.com/en/1.9/ref/templates/language/
-
 
 {% block content%}
-
-<h1 class="text-center"> Happy hacking. </h1>
-
+<div class="container-fluid">
+    <div class="row">  
+        <form method="POST">
+            {{searchForm}}
+            {% csrf_token %}
+            <div class="col-md-offset-3"> 
+                <input type="submit" class="btn btn-primary" value="Search">
+            </div>
+        </form>
+    </div>
+    <div class="row">  
+        <div class="col-md-offset-3"> 
+            <a type = "button" href="maker/" class='btn btn-success'> Add new</a>
+        </div>
+    </div>
+   
+</div>
 {% endblock %}
+
+

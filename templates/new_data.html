@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block content%}
+    <div class="container-fluid col-md-offset-3">
+        <div class="row">
+            <div class="col-sm-5 col-md-4 sidebar">
+                <form method="POST">
+                    <div class="form-group">
+                        {{formCanton}}
+                        {% csrf_token %}
+                    </div>
+                    <input type="submit" class="btn btn-primary" value="Add">
+                </form>
+            </div>
+            <div class="col-sm-5 col-md-4 sidebar">
+                 <form method="POST">
+                    {{formDistric}}
+                    {% csrf_token %}
+
+                    <input type="submit" class="btn btn-primary" value="Add">
+                </form>
+            </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-3 col-md-offset-3">
+            <a type = "button" href="/test/" class='btn btn-warning'>Back</a>
+          </div>
+        </div>
+    </div>
+{% if message %}
+<br>
+<div class="alert alert-success" role="alert">
+  <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+  <span class="sr-only">Success:</span>
+    {{message}}
+</div>
+{% endif %}
+{% endblock %}
+
